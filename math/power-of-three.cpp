@@ -1,15 +1,8 @@
+#include<bits/stdc++.h>
 class Solution {
 public:
     bool isPowerOfThree(int n) {
-        if(n<=0) return false;
-        if(n==1) return true;
-        while(true){
-            if(n%3==0){
-                n /= 3;
-                if(n==1) return true;
-            }
-            else break;
-        }
-        return false;
+        int maxPow = 1162261467; //3^19
+        return (n>0 && (maxPow%n==0));
     }
 };
