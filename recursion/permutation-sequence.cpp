@@ -1,24 +1,25 @@
 class Solution {
-    bool solve(int n, int& k, string& temp, int mask){
-        if(temp.size()==n){
-            k--;
-            return (k==0);
-        }
-
-        for(int i = 0; i<n; i++){
-            if((mask&(1<<i))==0){
-                temp.push_back((i+1)+'0');
-                if(solve(n, k, temp, mask|(1<<i)))
-                    return true;
-                temp.pop_back();
-            }
-        }
-        return false;
-    }
 public:
     string getPermutation(int n, int k) {
+        vector<int>dp(n+1, 0);
+        dp[1] = 1;
+        dp[0] = 1;
+        for(int i = 2; i<=n; i++){
+            dp[i] = i * dp[i-1];
+        }
+
         string temp;
-        solve(n, k, temp, 0);
+        vector<char>num;
+        for(char c = '1'; c<='9'; c++)
+            num.push_back(c);
+
+        k--;
+        for(int m = n-1; m>=0; m--){
+            int idx = k/dp[m];
+            temp.push_back(num[idx]);
+            num.erase(num.begin()+idx);
+            k = k%dp[m];
+        }
         return temp;
     }
 };
