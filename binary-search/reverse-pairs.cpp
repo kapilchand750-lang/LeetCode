@@ -31,15 +31,15 @@ class Solution {
     }
 
     void mergeSort(vector<int>&arr, int start, int end){
-        while(start<end){
+        if(start<end){
             int mid = start + (end - start)/2;
             mergeSort(arr, start, mid);
             mergeSort(arr, mid + 1, end);
             int j = mid + 1;
             for(int i = start; i<=mid; i++){
-                while(j<=end && arr[left]>2*arr[j])
+                while(j<=end && (long long)arr[i]>2LL*arr[j])
                 j++;
-                revCnt =j - (mid + 1);
+                revCnt +=j - (mid + 1);
             }
             merge(arr, start, mid, end);
         }
