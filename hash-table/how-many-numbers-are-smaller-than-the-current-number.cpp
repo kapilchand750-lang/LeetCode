@@ -1,22 +1,22 @@
 class Solution {
 public:
     vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
-        int n = nums.size();
+        vector<int>freq(101, 0);
 
-        vector<int>sortedCopy = nums;
-        sort(sortedCopy.begin(), sortedCopy.end());
+        for(auto num : nums)
+            freq[num]++;
+        
+        for(int i = 1; i<101; i++)
+            freq[i] += freq[i-1];
 
-        unordered_map<int, int>firstIdxMap;
-        for(int i = 0; i<n; i++){
-            if(firstIdxMap.find(sortedCopy[i])==firstIdxMap.end())
-                firstIdxMap[sortedCopy[i]] = i;
+        vector<int>ans;
+        for(auto num : nums){
+            if(num==0)
+                ans.push_back(0);
+            else
+                ans.push_back(freq[num - 1]);
         }
 
-        vector<int>cnt(n, 0);
-
-        for(int i = 0; i<n; i++)
-            cnt[i] = firstIdxMap[nums[i]];
-
-        return cnt;
+        return ans;
     }
 };
