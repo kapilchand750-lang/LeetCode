@@ -6,17 +6,17 @@ public:
         sort(copy.begin(), copy.end());
 
         unordered_map<int, int>rank;
-        int duplicate = 0;
-        for(int i = 0; i<n; i++){
-            if(rank.find(copy[i]) == rank.end())
-                rank[copy[i]] = i + 1 - duplicate;
-            else duplicate++;
+        int Rank = 1;
+        for(auto num : copy){
+            if(rank.find(num)==rank.end()){
+                rank[num] = Rank;
+                Rank++;
+            }
         }
-        vector<int>ans(n, 0);
-
-        for(int i = 0; i<n; i++)
-            ans[i] = rank[arr[i]];
         
-        return ans;
+        for(int i = 0; i<n; i++)
+            copy[i] = rank[arr[i]];
+        
+        return copy;
     }
 };
