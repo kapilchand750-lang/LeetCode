@@ -9,15 +9,17 @@ class Solution {
         map['C'] = {100, 5};
         map['D'] = {500, 6};
         map['M'] = {1000, 7};
-        
-        int i = 1;
-        int n = s.size();
-        int num = map[s[0]].first;
-        while(i<n){
-            num += map[s[i]].first;
-            if(map[s[i]].second>map[s[i-1]].second)
-                num -= 2*map[s[i-1]].first;
-            i++;
+
+        int n = s.size();       
+        int i = n-2;
+
+        int num = map[s[n-1]].first;
+        while(i>=0){
+           
+            if(map[s[i]].second>=map[s[i+1]].second)
+                num += map[s[i]].first;
+            else num -= map[s[i]].first;
+            i--;
         }
         return num;
     }
