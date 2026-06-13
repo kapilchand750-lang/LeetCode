@@ -4,8 +4,10 @@ public:
         int n = s.size();
         int m = goal.size();
         if(n!=m) return false;
-        string temp = s + s;
-        int pos = temp.find(goal);
-        return (pos!=-1);
+        for(int i = 0; i<n; i++){
+            string temp = s.substr(i, n-i) + s.substr(0, i);
+            if(temp==goal) return true;
+        }
+        return false;
     }
 };
