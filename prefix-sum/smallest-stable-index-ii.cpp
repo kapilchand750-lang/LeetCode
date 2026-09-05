@@ -12,22 +12,26 @@ public:
             prefMax[i] = prefMax[i-1];
         }
 
+        vector<int> suffMin(n);
+        suffMin = nums;
+        for(int i = n-2; i>=0; i--){
+            if(nums[i] < suffMin[i+1])
+                suffMin[i] = nums[i];
+            else suffMin[i] = suffMin[i+1];
+        }
+
         int instabilityScore;
         int i = 0;
-        int j = 0;
         while(i < n){
-            auto minIndex = min_element(nums.begin()+i, nums.end());
-            int smallest = *minIndex;
-            while(nums.begin()+i <= minIndex){
-                int largest = prefMax[i];
-                
-                instabilityScore = largest - smallest;
+            int largest = prefMax[i];
+            int smallest = suffMin[i];
 
-                if(instabilityScore <= k)
-                    return i;
+            instabilityScore = largest - smallest;
+
+            if(instabilityScore <= k)
+                return i;
                 
-                i++;
-            }
+            i++;
         }
 
         return -1;
