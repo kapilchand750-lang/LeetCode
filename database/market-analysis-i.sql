@@ -1,5 +1,5 @@
 # Write your MySQL query statement below
-select o.buyer_id, u.join_date,
+select u.user_id as buyer_id, u.join_date,
 SUM(
     CASE
     when YEAR(order_date) = 2019 then 1
